@@ -18,6 +18,17 @@ npm run build
 
 Markdown posts live in `src/content/posts`.
 
+## Publish
+
+The Cloudflare Pages project is connected to GitHub. Pushes to `main` trigger a production deployment automatically:
+
+```sh
+npm run verify
+git add .
+git commit -m "Update blog"
+git push
+```
+
 ## Write A Post
 
 Create a Markdown file in `src/content/posts`:
