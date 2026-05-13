@@ -31,7 +31,13 @@ git push
 
 ## Write A Post
 
-Create a Markdown file in `src/content/posts`:
+Copy the template outside the posts directory, then edit the new file:
+
+```sh
+cp templates/post-template.md src/content/posts/my-new-post.md
+```
+
+Each post should keep this structure:
 
 ````md
 ---
