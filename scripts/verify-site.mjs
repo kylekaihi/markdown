@@ -27,6 +27,29 @@ for (const file of requiredFiles) {
   }
 }
 
+const readRequired = async (file) => readFile(join(root, file), "utf8");
+
+const contentConfig = await readRequired("src/content/config.ts");
+for (const field of ["cover:", "coverAlt:"]) {
+  if (!contentConfig.includes(field)) {
+    fail(`content schema is missing ${field}`);
+  }
+}
+
+const postTemplate = await readRequired("src/pages/posts/[slug].astro");
+for (const marker of ["article-cover", "copy-code", "navigator.clipboard"]) {
+  if (!postTemplate.includes(marker)) {
+    fail(`post template is missing ${marker}`);
+  }
+}
+
+const globalStyles = await readRequired("src/styles/global.css");
+for (const selector of [".article-cover", ".prose figure", ".prose img", ".code-frame", ".copy-code"]) {
+  if (!globalStyles.includes(selector)) {
+    fail(`global styles are missing ${selector}`);
+  }
+}
+
 const postsDir = join(root, "src/content/posts");
 let posts = [];
 try {

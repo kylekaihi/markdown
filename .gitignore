@@ -6,3 +6,4 @@ dist/
 .tmp-screens/
 docs/superpowers/
 npm-debug.log*
+.DS_Store

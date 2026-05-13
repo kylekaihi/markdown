@@ -39,8 +39,66 @@ const formatDate = (date: Date) =>
         ))}
       </div>
     </header>
+    {post.data.cover && (
+      <figure class="article-cover">
+        <img src={post.data.cover} alt={post.data.coverAlt ?? ""} loading="eager" />
+        {post.data.coverAlt && <figcaption>{post.data.coverAlt}</figcaption>}
+      </figure>
+    )}
     <div class="prose">
       <Content />
     </div>
   </article>
+  <script>
+    const prose = document.querySelector(".prose");
+
+    prose?.querySelectorAll("p > img:only-child").forEach((image) => {
+      const paragraph = image.parentElement;
+      if (!paragraph) return;
+
+      const figure = document.createElement("figure");
+      figure.className = "image-frame";
+      paragraph.replaceWith(figure);
+      figure.append(image);
+
+      const alt = image.getAttribute("alt");
+      if (alt) {
+        const caption = document.createElement("figcaption");
+        caption.textContent = alt;
+        figure.append(caption);
+      }
+    });
+
+    prose?.querySelectorAll("pre").forEach((pre) => {
+      if (pre.parentElement?.classList.contains("code-frame")) return;
+
+      const frame = document.createElement("div");
+      frame.className = "code-frame";
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "copy-code";
+      button.setAttribute("aria-label", "Copy code");
+      button.textContent = "Copy";
+
+      pre.before(frame);
+      frame.append(button, pre);
+    });
+
+    const copyButtons = document.querySelectorAll<HTMLButtonElement>(".copy-code");
+
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const frame = button.closest(".code-frame");
+        const code = frame?.querySelector("pre")?.textContent;
+        if (!code) return;
+
+        await navigator.clipboard.writeText(code.trimEnd());
+        button.textContent = "Copied";
+        window.setTimeout(() => {
+          button.textContent = "Copy";
+        }, 1600);
+      });
+    });
+  </script>
 </BaseLayout>
