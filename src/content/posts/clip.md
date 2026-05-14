@@ -1,3 +1,4 @@
+---
 title: "文章标题"
 description: "一句话摘要，显示在首页和浏览器描述里。"
 date: 2026-05-13
@@ -17,3 +18,4 @@ draft: false
 
 ```ts
 const message = "代码块会自动高亮，并带复制按钮";
+```ts
