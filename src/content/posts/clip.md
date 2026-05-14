@@ -18,4 +18,4 @@ draft: false
 
 ```ts
 const message = "代码块会自动高亮，并带复制按钮";
-```ts
+```
