@@ -11,6 +11,8 @@ draft: false
 ## 深夜
 ![美誉](https://photos.app.goo.gl/gbQH46C19pn1NhxA7)<!-- {"preview":"true"} -->
 
+![色气](/images/ISSUE1063.JPG)<!-- {"preview":"true"} -->
+
 深夜微风入梦长，
 孤灯一盏映寒窗。
 月华洒落庭前静，
