@@ -7,6 +7,10 @@ const requiredFiles = [
   "package.json",
   "astro.config.mjs",
   "scripts/r2-upload-image.mjs",
+  "worker/README.md",
+  "worker/src/index.js",
+  "worker/test/upload.test.mjs",
+  "worker/wrangler.jsonc",
   "src/content/config.ts",
   "src/layouts/BaseLayout.astro",
   "src/pages/index.astro",
@@ -41,6 +45,12 @@ const packageJson = JSON.parse(await readRequired("package.json"));
 if (packageJson.scripts?.["upload:image"] !== "node scripts/r2-upload-image.mjs") {
   fail("package.json is missing upload:image script");
 }
+if (packageJson.scripts?.["test:worker"] !== "node --test worker/test/*.test.mjs") {
+  fail("package.json is missing test:worker script");
+}
+if (packageJson.scripts?.["deploy:uploader"] !== "wrangler deploy --config worker/wrangler.jsonc") {
+  fail("package.json is missing deploy:uploader script");
+}
 
 const uploadScript = await readRequired("scripts/r2-upload-image.mjs");
 for (const marker of ["R2_BUCKET", "R2_PUBLIC_URL", "wrangler r2 object put", "Cache-Control"]) {
@@ -59,6 +69,27 @@ for (const marker of ["R2 Image Hosting", "R2_BUCKET", "R2_PUBLIC_URL", "npm run
 const postTemplate = await readRequired("templates/post-template.md");
 if (!postTemplate.includes("https://img.example.com/images/example.jpg")) {
   fail("post template should show an R2 fixed image URL");
+}
+
+const workerConfig = await readRequired("worker/wrangler.jsonc");
+for (const marker of ["BLOG_IMAGES", "freetu", "PUBLIC_BASE_URL"]) {
+  if (!workerConfig.includes(marker)) {
+    fail(`Worker Wrangler config is missing ${marker}`);
+  }
+}
+
+const workerSource = await readRequired("worker/src/index.js");
+for (const marker of ["UPLOAD_TOKEN", "BLOG_IMAGES.put", "markdown", "timingSafeEqual"]) {
+  if (!workerSource.includes(marker)) {
+    fail(`Worker uploader source is missing ${marker}`);
+  }
+}
+
+const workerReadme = await readRequired("worker/README.md");
+for (const marker of ["iPhone Shortcut", "Copy to Clipboard", "UPLOAD_TOKEN"]) {
+  if (!workerReadme.includes(marker)) {
+    fail(`Worker README is missing ${marker}`);
+  }
 }
 
 const contentConfig = await readRequired("src/content/config.ts");

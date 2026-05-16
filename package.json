@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
+    "check:uploader": "wrangler deploy --dry-run --config worker/wrangler.jsonc",
+    "deploy:uploader": "wrangler deploy --config worker/wrangler.jsonc",
     "preview": "astro preview",
+    "test:worker": "node --test worker/test/*.test.mjs",
     "upload:image": "node scripts/r2-upload-image.mjs",
     "verify": "node scripts/verify-site.mjs"
   },

@@ -1,0 +1,20 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "blog-image-uploader",
+  "main": "src/index.js",
+  "compatibility_date": "2026-05-16",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "r2_buckets": [
+    {
+      "binding": "BLOG_IMAGES",
+      "bucket_name": "freetu"
+    }
+  ],
+  "vars": {
+    "PUBLIC_BASE_URL": "https://pub-dcceaf593d2f4e1b98340983af943fa0.r2.dev",
+    "MAX_UPLOAD_BYTES": "20971520"
+  }
+}

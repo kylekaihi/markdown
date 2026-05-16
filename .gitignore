@@ -7,5 +7,6 @@ dist/
 docs/superpowers/
 .env
 .env.local
+.dev.vars
 npm-debug.log*
 .DS_Store

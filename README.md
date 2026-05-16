@@ -54,6 +54,42 @@ coverAlt: "Cover image description"
 
 If you omit the object key, the script uploads to `images/<filename>`. To change the default prefix, set `R2_PREFIX`, for example `R2_PREFIX=blog`.
 
+### Mobile Shortcut Uploader
+
+For phone-first writing, this repo also includes a Worker uploader in `worker/`. The iPhone Shortcut flow is:
+
+1. Select Photos.
+2. Convert Image to JPEG.
+3. Send the image to the Worker with an `Authorization: Bearer <UPLOAD_TOKEN>` header.
+4. Read the JSON field named `markdown`.
+5. Copy that Markdown image link to the clipboard.
+
+Configure the Worker:
+
+```sh
+npx wrangler secret put UPLOAD_TOKEN --config worker/wrangler.jsonc
+```
+
+Deploy it:
+
+```sh
+npm run deploy:uploader
+```
+
+The Worker writes the image to R2 and returns a Markdown link:
+
+```md
+![mobile cafe menu](https://pub-dcceaf593d2f4e1b98340983af943fa0.r2.dev/images/2026-05-16-ab12cd34-mobile-cafe-menu.jpg)
+```
+
+See `worker/README.md` for the full Shortcut setup.
+
+Current Worker upload URL:
+
+```txt
+https://blog-image-uploader.shaokai-hi.workers.dev
+```
+
 ## Publish
 
 The Cloudflare Pages project is connected to GitHub. Pushes to `main` trigger a production deployment automatically:
