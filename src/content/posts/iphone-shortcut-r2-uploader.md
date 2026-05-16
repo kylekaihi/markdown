@@ -22,10 +22,10 @@ draft: false
 https://blog-image-uploader.shaokai-hi.workers.dev
 ```
 
-上传口令是：
+上传口令不要写进公开文章。你需要在自己的快捷指令里填写私人口令：
 
 ```txt
-6b58ddc09a0aeac0c3a528d6bf16c7a98eeb042064f3af7e
+<UPLOAD_TOKEN>
 ```
 
 图片会被写入 R2 bucket `freetu`，最终公开地址会使用：
@@ -111,7 +111,7 @@ https://blog-image-uploader.shaokai-hi.workers.dev
 再添加请求标头：
 
 ```txt
-Authorization: Bearer 6b58ddc09a0aeac0c3a528d6bf16c7a98eeb042064f3af7e
+Authorization: Bearer <UPLOAD_TOKEN>
 ```
 
 注意 `Bearer` 后面有一个空格。
