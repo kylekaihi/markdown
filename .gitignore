@@ -5,5 +5,7 @@ dist/
 .superpowers/
 .tmp-screens/
 docs/superpowers/
+.env
+.env.local
 npm-debug.log*
 .DS_Store

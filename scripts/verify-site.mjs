@@ -6,6 +6,7 @@ const root = process.cwd();
 const requiredFiles = [
   "package.json",
   "astro.config.mjs",
+  "scripts/r2-upload-image.mjs",
   "src/content/config.ts",
   "src/layouts/BaseLayout.astro",
   "src/pages/index.astro",
@@ -27,7 +28,38 @@ for (const file of requiredFiles) {
   }
 }
 
-const readRequired = async (file) => readFile(join(root, file), "utf8");
+const readRequired = async (file) => {
+  try {
+    return await readFile(join(root, file), "utf8");
+  } catch {
+    fail(`${file} could not be read`);
+    return "";
+  }
+};
+
+const packageJson = JSON.parse(await readRequired("package.json"));
+if (packageJson.scripts?.["upload:image"] !== "node scripts/r2-upload-image.mjs") {
+  fail("package.json is missing upload:image script");
+}
+
+const uploadScript = await readRequired("scripts/r2-upload-image.mjs");
+for (const marker of ["R2_BUCKET", "R2_PUBLIC_URL", "wrangler r2 object put", "Cache-Control"]) {
+  if (!uploadScript.includes(marker)) {
+    fail(`R2 upload script is missing ${marker}`);
+  }
+}
+
+const readme = await readRequired("README.md");
+for (const marker of ["R2 Image Hosting", "R2_BUCKET", "R2_PUBLIC_URL", "npm run upload:image"]) {
+  if (!readme.includes(marker)) {
+    fail(`README is missing ${marker}`);
+  }
+}
+
+const postTemplate = await readRequired("templates/post-template.md");
+if (!postTemplate.includes("https://img.example.com/images/example.jpg")) {
+  fail("post template should show an R2 fixed image URL");
+}
 
 const contentConfig = await readRequired("src/content/config.ts");
 for (const field of ["cover:", "coverAlt:"]) {
@@ -36,9 +68,9 @@ for (const field of ["cover:", "coverAlt:"]) {
   }
 }
 
-const postTemplate = await readRequired("src/pages/posts/[slug].astro");
+const postPage = await readRequired("src/pages/posts/[slug].astro");
 for (const marker of ["article-cover", "copy-code", "navigator.clipboard"]) {
-  if (!postTemplate.includes(marker)) {
+  if (!postPage.includes(marker)) {
     fail(`post template is missing ${marker}`);
   }
 }
