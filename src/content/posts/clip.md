@@ -13,6 +13,8 @@ draft: false
 
 ![色气](/images/ISSUE1063.JPG)<!-- {"preview":"true"} -->
 
+![img 3538](https://pub-dcceaf593d2f4e1b98340983af943fa0.r2.dev/images/2026-05-16-25579648-img-3538.jpeg)
+
 深夜微风入梦长，
 孤灯一盏映寒窗。
 月华洒落庭前静，
