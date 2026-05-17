@@ -3,7 +3,7 @@ title: "Polymarket 量化交易入门指南：在预测市场中寻找 Alpha"
 description: "本文将带你快速了解如何利用 API 和量化策略，在去中心化预测市场 Polymarket 上进行自动化交易、做市与套利。"
 date: 2026-05-17
 tags: ["量化交易", "Polymarket", "Web3", "算法策略"]
-cover: "https://images.unsplash.com/photo-1642104704074-907c0698cbd9"
+cover: "/images/IMG_3576.png"
 coverAlt: "区块链与量化交易图示"
 draft: false
 ---
@@ -22,7 +22,7 @@ Polymarket 是目前全球最大的去中心化预测市场。与传统的股票
 * **高频做市（Market Making）：** 预测市场的流动性往往断层严重。通过在限价订单簿（CLOB）的两端双向挂单，为市场提供流动性并赚取买卖价差（Spread），同时还可以获取平台可能存在的流动性激励。
 * **事件驱动型交易（News Trading）：** 编写爬虫实时监控社交媒体（X、Telegram）、主流媒体或链上预言机数据，通过大语言模型（LLM）快速解析并将新闻转化为交易指令，在散户反应过来之前完成买入或卖出。
 
-![Polymarket CLOB 订单簿量化架构示意图](https://img.example.com/images/polymarket-quant-arch.jpg)
+![Polymarket CLOB 订单簿量化架构示意图](/images/IMG_3575.png)
 *上图展示了一个典型的 Polymarket 量化交易系统架构，包含了行情获取、策略生成和订单执行三个核心模块。*
 
 ## 准备工作与 API 接入
@@ -55,3 +55,10 @@ async function fetchMarketOrderBook(marketId: string) {
 
 // 示例：传入某热门预测事件的 Market Token ID
 fetchMarketOrderBook("0x123456...7890");
+```
+风控提示
+尽管预测市场的 Alpha 空间巨大，但量化交易者仍需面对独特的风险。
+• 长尾风险（Black Swan）： 某些事件结果的判定可能存在争议，最终结算取决于预言机（UMA）的裁决，这会带来规则与时间窗口上的不确定性。
+• 流动性风险： 在市场剧烈波动或极端黑天鹅事件发生时，订单簿可能瞬间变薄，导致止损单产生严重的滑点，甚至无法离场。
+因此，合理的仓位控制、动态的滑点保护机制以及严格的结算逻辑判断，是量化系统设计中不可或缺的重中之重。
+
