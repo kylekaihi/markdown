@@ -13,10 +13,17 @@ npm run dev
 
 ```sh
 npm run verify
+npm test
 npm run build
 ```
 
 Markdown posts live in `src/content/posts`.
+
+## Site Stats
+
+The blog shows the current visitor time and a visit count near the top of every page. In production, create a Cloudflare KV namespace binding named `SITE_VISITS` for the Pages project so `/api/visit` can store the global count.
+
+If the binding is not available, the page falls back to a browser-local counter so the static site still renders normally during local development.
 
 ## R2 Image Hosting
 

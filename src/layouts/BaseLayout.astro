@@ -33,6 +33,10 @@ const pageTitle = title === siteName ? siteName : `${title} - ${siteName}`;
           <a href="/#archive">Archive</a>
         </nav>
       </header>
+      <aside class="site-stats" aria-label="Site statistics">
+        <span>现在 <time data-current-time datetime=""></time></span>
+        <span data-visitor-count>正在统计访问人数...</span>
+      </aside>
       <main>
         <slot />
       </main>
@@ -40,5 +44,8 @@ const pageTitle = title === siteName ? siteName : `${title} - ${siteName}`;
         <span>Written in Markdown. Published on Cloudflare Pages.</span>
       </footer>
     </div>
+    <script>
+      import "../scripts/site-stats.mjs";
+    </script>
   </body>
 </html>

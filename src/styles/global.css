@@ -74,9 +74,33 @@ a:hover {
   text-decoration: none;
 }
 
+.site-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-stats span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.7rem;
+}
+
+.site-stats span::before {
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  content: "";
+}
+
 .hero {
   max-width: var(--measure);
-  padding: 82px 0 58px;
+  padding: 64px 0 58px;
 }
 
 .eyebrow,
